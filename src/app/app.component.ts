@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'lg-root',
+  template: `
+   <lg-login></lg-login>
+  `,
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   title = 'logbook';
