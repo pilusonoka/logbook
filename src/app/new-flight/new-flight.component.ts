@@ -108,7 +108,7 @@ import { StringToHoursPipe } from '../pipes/stringToHours/stringToHours.pipe';
       <button type="button" class="btn btn-primary" (click)="flight.takeoffs=flight.takeoffs+1">
         <span class="material-icons">add</span>
       </button>
-      <span class="btn">{{flight.takeoffs}}</span>
+      <button><span class="btn">{{flight.takeoffs}}</span></button>
       <button type="button" class="btn btn-primary" (click)="flight.takeoffs=flight.takeoffs-1">
         <i class="material-icons">remove</i>
       </button>
