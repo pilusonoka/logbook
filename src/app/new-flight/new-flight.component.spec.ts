@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NewFlightComponent } from './new-flight.component';
 import { FormsModule } from '@angular/forms';
-import { HoursPipe } from '../hours.pipe';
+import { HoursPipe } from '../pipes/hours/hours.pipe';
 
 describe('NewFlightComponent', () => {
   let component: NewFlightComponent;

@@ -10,14 +10,16 @@ import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment.prod';
 import { LoginComponent } from './login/login.component';
 import { NewFlightComponent } from './new-flight/new-flight.component';
-import { HoursPipe } from './hours.pipe';
+import { HoursPipe } from './pipes/hours/hours.pipe';
+import { StringToHoursPipe } from './pipes/stringToHours/stringToHours.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     NewFlightComponent,
-    HoursPipe
+    HoursPipe,
+    StringToHoursPipe
   ],
   imports: [
     BrowserModule,

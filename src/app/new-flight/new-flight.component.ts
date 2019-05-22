@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApplicationStateService } from '../application-state.service';
 import { Flight, flightRules } from '../models/flight';
+import { StringToHoursPipe } from '../pipes/stringToHours/stringToHours.pipe';
 
 @Component({
   selector: 'lg-new-flight',
@@ -25,7 +26,8 @@ import { Flight, flightRules } from '../models/flight';
         <input type="time"
                class="form-control"
                name="start_time"
-               [(ngModel)]="flight.start_time"
+               [ngModel]="flight.start_time | hours"
+               (ngModelChange)="flight.start_time = stringToTime.transform($event)"
                placeholder="Start time">
       </div>
     </div>
@@ -37,7 +39,7 @@ import { Flight, flightRules } from '../models/flight';
                class="form-control"
                name="duration"
                [ngModel]="flight.duration | hours"
-               (ngModelChange)="flight.duration = $event"
+               (ngModelChange)="flight.duration = stringToTime.transform($event)"
                placeholder="Duration">
       </div>
     </div>
@@ -121,15 +123,17 @@ import { Flight, flightRules } from '../models/flight';
     </div>
   </div>
 </fieldset>
+<button type="submit">submit</button>
 </form>
   `,
-  styleUrls: ['./new-flight.component.scss']
+  styleUrls: ['./new-flight.component.scss'],
+  providers: [StringToHoursPipe]
 })
 export class NewFlightComponent implements OnInit {
   flight: Flight;
   flightRules: string[];
 
-  constructor(private applicationState: ApplicationStateService) { }
+  constructor(private applicationState: ApplicationStateService, public stringToTime: StringToHoursPipe) { }
 
   ngOnInit() {
     this.flight = new Flight(this.applicationState.pilot);
@@ -142,7 +146,7 @@ export class NewFlightComponent implements OnInit {
   }
 
   saveFlight() {
-    console.log('TODO: save flight')
+    console.log('TODO: save flight', this.flight)
   }
 
 }

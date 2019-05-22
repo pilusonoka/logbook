@@ -4,7 +4,7 @@ import { NewFlightComponent } from './new-flight/new-flight.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { HoursPipe } from './hours.pipe';
+import { HoursPipe } from './pipes/hours/hours.pipe';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
