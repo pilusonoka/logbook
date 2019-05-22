@@ -105,11 +105,11 @@ import { StringToHoursPipe } from '../pipes/stringToHours/stringToHours.pipe';
   <div class="form-group row">
     <label for="takeoffs" class="col-3 col-form-label">Takeoffs</label>
     <div class="btn-group col-2" role="group" aria-label="Basic example">
-      <button type="button" class="btn btn-primary" (click)="value=value+1">
+      <button type="button" class="btn btn-primary" (click)="flight.takeoffs=flight.takeoffs+1">
         <span class="material-icons">add</span>
       </button>
-      <span class="btn">{{value}}</span>
-      <button type="button" class="btn btn-primary" (click)="value=value-1">
+      <span class="btn">{{flight.takeoffs}}</span>
+      <button type="button" class="btn btn-primary" (click)="flight.takeoffs=flight.takeoffs-1">
         <i class="material-icons">remove</i>
       </button>
       <br>
