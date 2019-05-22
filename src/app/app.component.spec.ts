@@ -1,10 +1,29 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { NewFlightComponent } from './new-flight/new-flight.component';
+import { LoginComponent } from './login/login.component';
+import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { HoursPipe } from './hours.pipe';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
+        LoginComponent,
+        NewFlightComponent,
+        HoursPipe
+      ],
+      imports: [
+        BrowserModule,
+        FormsModule,
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFireDatabaseModule,
+        AngularFireAuthModule
       ],
     }).compileComponents();
   }));
@@ -17,11 +36,5 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app.title).toEqual('logbook');
-  }));
-  it('should render title in a h1 tag', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to logbook!');
   }));
 });

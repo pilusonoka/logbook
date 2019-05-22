@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NewFlightComponent } from './new-flight.component';
+import { FormsModule } from '@angular/forms';
+import { HoursPipe } from '../hours.pipe';
 
 describe('NewFlightComponent', () => {
   let component: NewFlightComponent;
@@ -8,7 +10,8 @@ describe('NewFlightComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NewFlightComponent ]
+      declarations: [ NewFlightComponent, HoursPipe ],
+      imports: [FormsModule]
     })
     .compileComponents();
   }));

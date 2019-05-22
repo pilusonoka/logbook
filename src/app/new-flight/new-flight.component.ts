@@ -1,28 +1,44 @@
 import { Component, OnInit } from '@angular/core';
+import { ApplicationStateService } from '../application-state.service';
+import { Flight, flightRules } from '../models/flight';
 
 @Component({
   selector: 'lg-new-flight',
   template: `
-<form>
+<form #flightForm="ngForm" (ngSubmit)="saveFlight()">
   <fieldset class="form-group">
     <div class="form-group row">
       <label for="date" class="col-3 col-form-label">Date</label>
       <div class="col-9">
-        <input type="date" class="form-control" id="date" placeholder="Date">
+        <input type="date"
+               required
+               class="form-control" 
+               name="date"
+               [(ngModel)]="flight.date"
+               placeholder="Date">
       </div>
     </div>
 
     <div class="form-group row">
       <label for="start_time" class="col-3 col-form-label">Start at</label>
       <div class="col-9">
-        <input type="time" class="form-control" id="start_time" placeholder="Start time">
+        <input type="time"
+               class="form-control"
+               name="start_time"
+               [(ngModel)]="flight.start_time"
+               placeholder="Start time">
       </div>
     </div>
 
     <div class="form-group row">
       <label for="duration" class="col-3 col-form-label">Duration</label>
       <div class="col-9">
-        <input type="time" class="form-control" id="duration" placeholder="Duration">
+        <input type="time"
+               class="form-control"
+               name="duration"
+               [ngModel]="flight.duration | hours"
+               (ngModelChange)="flight.duration = $event"
+               placeholder="Duration">
       </div>
     </div>
 
@@ -31,29 +47,46 @@ import { Component, OnInit } from '@angular/core';
   <div class="form-group row">
     <label for="aircraft" class="col-3 col-form-label">Aircraft</label>
     <div class="col-9">
-      <input type="text" class="form-control" id="duration" placeholder="Aircraft">
+      <input type="text"
+             class="form-control"
+             name="aircraft"
+             [(ngModel)]="flight.aircraft"
+             placeholder="Aircraft">
     </div>
   </div>
 
   <div class="form-group row">
     <label for="departure" class="col-3 col-form-label">Departure</label>
     <div class="col-9">
-      <input type="text" class="form-control" id="departure" placeholder="Departure">
+      <input type="text"
+             class="form-control"
+             name="departure"
+             [(ngModel)]="flight.departure"
+             placeholder="Departure">
     </div>
   </div>
 
   <div class="form-group row">
     <label for="arrival" class="col-3 col-form-label">Arrival</label>
     <div class="col-9">
-      <input type="text" class="form-control" id="arrival" placeholder="Arrival">
+      <input type="text"
+             class="form-control"
+             name="arrival"
+             [(ngModel)]="flight.arrival"
+             placeholder="Arrival">
     </div>
   </div>
 
   <div class="form-group row">
     <label for="flight_rule" class="col-3 col-form-label">Flight rule</label><br>
     <div class="btn-group col-3" role="group" aria-label="Basic example">
-      <button type="button" class="btn btn-primary">VFR</button>
-      <button type="button" class="btn btn-light">IFR</button>
+    <ng-container *ngFor="let rule of flightRules">
+    <button type="button"
+            class="btn"
+            (click)="flight.flight_rule = rule"
+            [ngClass]="{'btn-primary': flight.flight_rule === rule,
+                        'btn-light': flight.flight_rule !== rule}">{{rule}}</button>
+    </ng-container>
     </div>
   </div>
 
@@ -93,15 +126,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./new-flight.component.scss']
 })
 export class NewFlightComponent implements OnInit {
+  flight: Flight;
+  flightRules: string[];
 
-  value = 1;
-  constructor() { }
+  constructor(private applicationState: ApplicationStateService) { }
 
   ngOnInit() {
+    this.flight = new Flight(this.applicationState.pilot);
+    this.flightRules = flightRules;
+    console.log(this.flight)
   }
 
   toggleCrossCountry(e) {
     console.log(e);
+  }
+
+  saveFlight() {
+    console.log('TODO: save flight')
   }
 
 }
