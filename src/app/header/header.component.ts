@@ -6,7 +6,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
   template: `
   <mat-toolbar color="primary">
     <mat-toolbar-row>
-      <span *ngIf="afAuth.user | async as user; else showLogin">Pilot: {{user.displayName}} </span>
+      <span *ngIf="afAuth.user | async as user; else showLogin" class="pilotName">Pilot: {{user.displayName}} </span>
       <ng-template #showLogin>
         Pilot Logbook
       </ng-template>
@@ -16,7 +16,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
         <mat-icon class="headerIcon">face</mat-icon>
         <button mat-raised-button color="accent" class="logoutButton" (click)="logout()">
           <mat-icon >power_settings_new</mat-icon>
-          Logout
+          <span class="logoutText">Logout</span>
         </button>
       </ng-container>
     </mat-toolbar-row>

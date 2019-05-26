@@ -1,5 +1,5 @@
 .headerIcon {
-  padding: 0 14px;
+  padding: 0 1em;
 }
 
 .spacer {
@@ -9,4 +9,20 @@
 .logoutButton {
   margin-left: 2.5em;
   padding-left: 0.5em;
+}
+
+@media (max-width: 599px) {
+  .logoutButton {
+    margin-left: 0.25em;
+    padding: 0;
+    .logoutText {
+      display: none;
+    }
+  }
+  .headerIcon {
+    padding: 0 0.7em 0 0;
+  }
+  .pilotName {
+    font-size: 0.7em;
+  }
 }
