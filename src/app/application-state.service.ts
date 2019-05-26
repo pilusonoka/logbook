@@ -5,10 +5,6 @@ import { Pilot } from './models/pilot';
   providedIn: 'root'
 })
 export class ApplicationStateService {
-  
-  pilot: Pilot = {
-    aircrafts: ['BEBE'],
-    name: 'Karina Zarzecka'
-  };
+  pilot: Pilot;
   constructor() { }
 }

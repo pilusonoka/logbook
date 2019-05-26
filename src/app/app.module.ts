@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { AngularFireModule } from '@angular/fire';
-import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment.prod';
@@ -12,6 +12,7 @@ import { LoginComponent } from './login/login.component';
 import { NewFlightComponent } from './new-flight/new-flight.component';
 import { HoursPipe } from './pipes/hours/hours.pipe';
 import { StringToHoursPipe } from './pipes/stringToHours/stringToHours.pipe';
+import { MaterialModule } from './material.module';
 
 @NgModule({
   declarations: [
@@ -25,8 +26,9 @@ import { StringToHoursPipe } from './pipes/stringToHours/stringToHours.pipe';
     BrowserModule,
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

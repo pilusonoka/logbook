@@ -17,7 +17,12 @@ import { auth } from 'firebase/app';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  constructor(public afAuth: AngularFireAuth) {}
+  constructor(public afAuth: AngularFireAuth) {
+    this.afAuth.authState.toPromise().then(res => console.log('authState', res));
+    this.afAuth.user.toPromise().then(res => console.log('user', res));
+    this.afAuth.idToken.toPromise().then(res => console.log('idToken', res));
+    this.afAuth.idTokenResult.toPromise().then(res => console.log('idTokenResult', res));
+  }
 
   login() {
     this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());

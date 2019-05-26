@@ -3,3 +3,46 @@ input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none; 
   margin: 0; 
 }
+.example-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.example-container > * {
+  width: 100%;
+}
+
+.example-container form {
+  margin-bottom: 20px;
+}
+
+.example-container form > * {
+  margin: 5px 0;
+}
+
+.example-container .mat-radio-button {
+  margin: 0 12px;
+}
+
+.takeoffs {
+  margin-top: 1em;
+}
+::ng-deep {
+
+  .mat-slider-min-value.mat-slider-thumb-label-showing .mat-slider-thumb-label {
+    background-color: #ffd740;
+  }
+  .mat-slider-thumb-label {
+    transform: rotate(45deg) !important;
+    border-radius: 50% 50% 0 !important;
+  }
+  
+  .mat-slider-thumb {
+    transform: scale(0) !important;
+  }
+  
+  .mat-slider-thumb-label-text {
+    opacity: 1 !important;
+  }
+
+}
