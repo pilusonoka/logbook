@@ -13,6 +13,8 @@ import { NewFlightComponent } from './new-flight/new-flight.component';
 import { HoursPipe } from './pipes/hours/hours.pipe';
 import { StringToHoursPipe } from './pipes/stringToHours/stringToHours.pipe';
 import { MaterialModule } from './material.module';
+import { HeaderComponent } from './header/header.component';
+import { SummaryComponent } from './summary/summary.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { MaterialModule } from './material.module';
     LoginComponent,
     NewFlightComponent,
     HoursPipe,
-    StringToHoursPipe
+    StringToHoursPipe,
+    HeaderComponent,
+    SummaryComponent
   ],
   imports: [
     BrowserModule,

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ApplicationStateService } from '../application-state.service';
+import { ApplicationStateService } from '../services/application-state.service';
 import { Flight, flightRules } from '../models/flight';
 import { StringToHoursPipe } from '../pipes/stringToHours/stringToHours.pipe';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'lg-new-flight',
@@ -107,19 +108,17 @@ export class NewFlightComponent implements OnInit {
   flightRules: string[];
 
   constructor(private applicationState: ApplicationStateService,
+              private storageService: StorageService,
               public stringToTime: StringToHoursPipe,
               private db: AngularFirestore) { }
 
   ngOnInit() {
     this.flight = new Flight(this.applicationState.pilot);
     this.flightRules = flightRules;
-    console.log(this.flight)
-    
   }
 
   saveFlight() {
-    this.db.collection('flights').add({...this.flight}).then(res => console.log('TODO: save flight', res));
-    
+    this.storageService.saveNewFlight(this.flight);
   }
 
 }

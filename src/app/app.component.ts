@@ -3,21 +3,22 @@ import 'jquery';
 import 'bootstrap';
 import 'hammerjs';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { ApplicationStateService } from './application-state.service';
+import { ApplicationStateService } from './services/application-state.service';
 import { Pilot } from './models/pilot';
-import { StorageService } from './storage.service';
+import { StorageService } from './services/storage.service';
 
 @Component({
   selector: 'lg-root',
   template: `
-   <lg-login></lg-login>
+   <lg-header></lg-header>
+   <lg-login *ngIf="showLogin"></lg-login>
    <lg-new-flight *ngIf="false"></lg-new-flight>
   `,
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'logbook';
-  constructor(private afAuth: AngularFireAuth,
+  showLogin = true;
+  constructor(public afAuth: AngularFireAuth,
               private applicationState: ApplicationStateService,
               private storageService: StorageService) {
     
@@ -25,6 +26,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.afAuth.authState.subscribe(user => {
+      this.showLogin = !user;
       if(user) {
         const isFirstLogin = user.metadata.creationTime === user.metadata.lastSignInTime;
         console.log(user, 'isFirstLogin', isFirstLogin)
