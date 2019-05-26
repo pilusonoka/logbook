@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
@@ -12,8 +12,9 @@ import { AngularFireAuth } from '@angular/fire/auth';
       </ng-template>
       <span class="spacer"></span>
       <ng-container *ngIf="afAuth.user | async">   
-        <mat-icon class="headerIcon">flight</mat-icon>
-        <mat-icon class="headerIcon">face</mat-icon>
+        <mat-icon class="headerIcon" (click)="requestView.emit('report')">flight</mat-icon>
+        <mat-icon class="headerIcon" (click)="requestView.emit('summary')">face</mat-icon>
+        <mat-icon class="headerIcon" (click)="requestView.emit('new-flight')">add</mat-icon>
         <button mat-raised-button color="accent" class="logoutButton" (click)="logout()">
           <mat-icon >power_settings_new</mat-icon>
           <span class="logoutText">Logout</span>
@@ -25,6 +26,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+
+  @Output() requestView = new EventEmitter();
 
   constructor(public afAuth: AngularFireAuth) { }
 

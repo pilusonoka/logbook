@@ -12,7 +12,7 @@ const views = ['login', 'summary', 'new-flight', 'report'];
 @Component({
   selector: 'lg-root',
   template: `
-   <lg-header></lg-header>` + 
+   <lg-header (requestView)="onViewRequest($event)"></lg-header>` + 
    views.map(view => `
      <lg-${view} *ngIf="activeView === '${view}'"
                  (requestView)="onViewRequest($event)"></lg-${view}>`).join('')
