@@ -15,6 +15,7 @@ import { StringToHoursPipe } from './pipes/stringToHours/stringToHours.pipe';
 import { MaterialModule } from './material.module';
 import { HeaderComponent } from './header/header.component';
 import { SummaryComponent } from './summary/summary.component';
+import { ReportComponent } from './report/report.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { SummaryComponent } from './summary/summary.component';
     HoursPipe,
     StringToHoursPipe,
     HeaderComponent,
-    SummaryComponent
+    SummaryComponent,
+    ReportComponent
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { ApplicationStateService } from '../services/application-state.service';
 import { Flight, flightRules } from '../models/flight';
 import { StringToHoursPipe } from '../pipes/stringToHours/stringToHours.pipe';
@@ -106,6 +106,7 @@ import { StorageService } from '../services/storage.service';
 export class NewFlightComponent implements OnInit {
   flight: Flight;
   flightRules: string[];
+  @Output() requestView = new EventEmitter();
 
   constructor(private applicationState: ApplicationStateService,
               private storageService: StorageService,
@@ -119,6 +120,7 @@ export class NewFlightComponent implements OnInit {
 
   saveFlight() {
     this.storageService.saveNewFlight(this.flight);
+    this.requestView.emit('summary');
   }
 
 }
