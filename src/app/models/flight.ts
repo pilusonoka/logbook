@@ -3,8 +3,8 @@ import { Time } from "@angular/common";
 
 export class Flight {
   pilotId: string;
-  crew: Pilot[];
-  date: string;
+  crew: string[];
+  date: Date;
   startTime: Time;
   duration: Time;
   aircraft: string;
@@ -16,13 +16,13 @@ export class Flight {
 
   constructor(pilot: Pilot) {
     this.pilotId = pilot.uid;
-    this.date = new Date().toISOString().split('T')[0];
-    this.crew = [pilot];
+    this.date = new Date();
+    this.crew = [pilot.uid];
     this.startTime = {hours: 12, minutes: 30};
     this.duration = {hours: 0, minutes: 0};
     this.aircraft = pilot.aircrafts[0];
     this.rule = 'VFR';
-    this.takeoffs = 1
+    this.takeoffs = 1;
     this.crosscountry = false;
   }
 }

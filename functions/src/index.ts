@@ -1,6 +1,7 @@
 import * as functions from 'firebase-functions';
 import * as  admin from 'firebase-admin';
-import { QuerySnapshot } from '@google-cloud/firestore';
+import { QuerySnapshot, Timestamp } from '@google-cloud/firestore';
+import { FlightDTO } from './flight-dto';
 admin.initializeApp(functions.config().firebase);
 
 // // Start writing Firebase Functions
@@ -9,6 +10,27 @@ admin.initializeApp(functions.config().firebase);
 export const helloWorld = functions.https.onRequest((request, response) => {
  response.send("Hello from Firebase!");
 });
+
+interface Duration {
+  hours: number;
+  minutes: number;
+}
+
+function normalizeDuration(duration: Duration) {
+  const normalized = {hours: duration.hours, minutes: 0};
+  normalized.hours += parseInt((duration.minutes / 60).toString())
+  normalized.minutes = duration.minutes % 60;
+  return normalized;
+}
+
+function isDateFromThisMonth(date: Timestamp) {
+  const flightDate = date.toDate();
+  const now = new Date();
+  console.log('dates', now, flightDate);
+  const isSameMonth = now.getMonth() === flightDate.getMonth();
+  const isSameYear = now.getFullYear() === flightDate.getFullYear();
+  return isSameYear && isSameMonth;
+}
 
 export const flights = functions.https.onRequest((request, response) => {
   const uid = request.body['uid'];
@@ -22,13 +44,42 @@ export const flights = functions.https.onRequest((request, response) => {
         response.statusCode = 404;
         response.send();
       } else {
-        const flights: any[] = [];
+        const res: {
+          timeForever: Duration,
+          timeThisMonth: Duration,
+          timePerAircraft: {[key in string]: Duration}
+        } = {
+          timeForever: {hours: 0, minutes: 0},
+          timeThisMonth: {hours: 0, minutes: 0},
+          timePerAircraft: {}
+        }
+        
         querySnapshot.docs.forEach(document => {
           if (document.exists) {
-            flights.push(document.data())
+            const flight = document.data() as FlightDTO;
+
+            res.timeForever.hours += flight.duration.hours;
+            res.timeForever.minutes += flight.duration.minutes;
+
+            if (!res.timePerAircraft[flight.aircraft]) {
+              res.timePerAircraft[flight.aircraft] = {hours: 0, minutes: 0}
+            }
+            res.timePerAircraft[flight.aircraft].hours += flight.duration.hours;
+            res.timePerAircraft[flight.aircraft].minutes += flight.duration.minutes;
+
+            if (isDateFromThisMonth(flight.date)) {
+              res.timeThisMonth.hours += flight.duration.hours;
+              res.timeThisMonth.minutes += flight.duration.minutes;
+            }
           }
         });
-        response.send(JSON.stringify(flights));
+        res.timeForever = normalizeDuration(res.timeForever);
+        res.timeThisMonth = normalizeDuration(res.timeThisMonth);
+        Object.keys(res.timePerAircraft).forEach(aircraft => {
+          res.timePerAircraft[aircraft] = normalizeDuration(res.timePerAircraft[aircraft]);
+        });
+        
+        response.send(JSON.stringify(res));
       }
     });
  });
