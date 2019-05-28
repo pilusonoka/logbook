@@ -49,7 +49,6 @@ export class AppComponent implements OnInit {
             .then(res => {
               console.log('bbebe', res)
               this.applicationState.pilot = res as Pilot;
-              this.applicationState.pilot.aircrafts = ['TODO: aircrafts']
             });
         }
       }

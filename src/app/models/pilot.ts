@@ -7,6 +7,7 @@ export class Pilot {
       uid: user.uid,
       phoneNumber: user.phoneNumber,
       email: user.email,
+      aircrafts: ['CSUOD', 'N503AL'],
       photoUrl: user.photoURL
     } as Pilot;
   }

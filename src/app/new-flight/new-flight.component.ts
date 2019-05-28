@@ -4,6 +4,7 @@ import { Flight, flightRules } from '../models/flight';
 import { StringToHoursPipe } from '../pipes/stringToHours/stringToHours.pipe';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { StorageService } from '../services/storage.service';
+import { Pilot } from '../models/pilot';
 
 @Component({
   selector: 'lg-new-flight',
@@ -74,7 +75,7 @@ import { StorageService } from '../services/storage.service';
 
   <mat-form-field>
     <input matInput placeholder="Crew" disabled >
-    <mat-checkbox class="example-margin" [checked]="true">{{flight.crew[0].name}}</mat-checkbox><br>
+    <mat-checkbox class="example-margin" [checked]="true">{{pilot.name}}</mat-checkbox><br>
   </mat-form-field>
 
   <mat-form-field>
@@ -105,6 +106,7 @@ import { StorageService } from '../services/storage.service';
 })
 export class NewFlightComponent implements OnInit {
   flight: Flight;
+  pilot: Pilot;
   flightRules: string[];
   @Output() requestView = new EventEmitter();
 
@@ -114,7 +116,8 @@ export class NewFlightComponent implements OnInit {
               private db: AngularFirestore) { }
 
   ngOnInit() {
-    this.flight = new Flight(this.applicationState.pilot);
+    this.pilot = this.applicationState.pilot;
+    this.flight = new Flight(this.pilot);
     this.flightRules = flightRules;
   }
 
