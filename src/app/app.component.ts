@@ -35,19 +35,19 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.afAuth.authState.subscribe(user => {
-      this.activeView = (!!user)? 'summary' : 'login';
-      console.log(this.activeView);
+      this.activeView = (!user)? 'login' : '';
       if(user) {
         const isFirstLogin = user.metadata.creationTime === user.metadata.lastSignInTime;
         console.log(user, 'isFirstLogin', isFirstLogin)
         if (isFirstLogin) {
           const pilot = Pilot.fromAuth(user);
           this.applicationState.pilot = pilot;
+          this.activeView = 'summary';
           this.storageService.registerUser(pilot);
         } else {
           this.storageService.getUserInfo(user.uid)
             .then(res => {
-              console.log('bbebe', res)
+              this.activeView = 'summary';
               this.applicationState.pilot = res as Pilot;
             });
         }
