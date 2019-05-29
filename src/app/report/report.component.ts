@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApplicationStateService } from '../services/application-state.service';
 import { StorageService } from '../services/storage.service';
-import { Flight } from '../models/flight';
+import { Flight, flightRules } from '../models/flight';
 import { Pilot } from '../models/pilot';
 
 @Component({
@@ -19,16 +19,21 @@ import { Pilot } from '../models/pilot';
     </ng-container>
 
     <ng-container matColumnDef="duration">
-      <th mat-header-cell *matHeaderCellDef> duration </th>
+      <th mat-header-cell *matHeaderCellDef> Duration </th>
       <td mat-cell *matCellDef="let element"> {{element.duration | hours}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-icon class="headerIcon" *ngIf="!element.removeCounter" (click)="removeFlight(element)">delete</mat-icon>
+        <mat-icon class="headerIcon" *ngIf="element.removeCounter" (click)="restore(element)">restore_from_trash</mat-icon>
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-    <p>
-      report works!
-    </p>
   `,
   styleUrls: ['./report.component.scss']
 })
@@ -48,9 +53,13 @@ export class ReportComponent implements OnInit {
         .getAllFlights(this.pilot)
         .then(res => this.flights = res)
         .then(res => {
-          this.displayedColumns = ['date', 'aircraft', 'duration'];
+          this.displayedColumns = ['date', 'aircraft', 'duration', 'actions'];
           this.dataSource = this.flights;
         });
+  }
+
+  removeFlight(element: Flight) {
+    element.removeCounter = 7;
   }
 
 }

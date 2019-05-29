@@ -13,6 +13,7 @@ export class Flight {
   rule: FlightRule;
   takeoffs: number;
   crosscountry: boolean;
+  removeCounter?: number;
 
   constructor(pilot: Pilot) {
     this.pilotId = pilot.uid;
