@@ -16,6 +16,7 @@ import { MaterialModule } from './material.module';
 import { HeaderComponent } from './header/header.component';
 import { SummaryComponent } from './summary/summary.component';
 import { ReportComponent } from './report/report.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ReportComponent } from './report/report.component';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    MaterialModule
+    MaterialModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

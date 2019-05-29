@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -10,7 +11,8 @@ import { Flight } from '../models/flight';
 export class StorageService {
 
   constructor(private afAuth: AngularFireAuth,
-              private db: AngularFirestore) {}
+              private db: AngularFirestore,
+              private http: HttpClient) {}
 
   registerUser(pilot: Pilot): Promise<any> {
     return this.db.collection('users')
@@ -44,6 +46,12 @@ export class StorageService {
                   return flights;
                });
   }
+
+  getFlightsSummary(pilot: Pilot): Promise<any> {
+    return this.http.get(
+        `https://us-central1-logbook-44600.cloudfunctions.net/getFlights?uid=${pilot.uid}`
+    ).toPromise();
+  } 
 
   saveNewFlight(flight: Flight): Promise<any> {
     return this.db.collection('flights')

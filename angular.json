@@ -24,7 +24,6 @@
             ],
             "styles": [
               "src/app/theme.scss",
-
               "node_modules/material-icons/css/material-icons.min.css",
               "src/styles.css"
             ],

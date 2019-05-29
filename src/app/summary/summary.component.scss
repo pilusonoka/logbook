@@ -1,0 +1,10 @@
+.flightTime {
+  font-weight: 800;
+
+  &--total {
+    color: firebrick;
+  }
+  &--month {
+    color: goldenrod;
+  }
+}
