@@ -6,7 +6,7 @@ import { auth } from 'firebase/app';
   selector: 'lg-login',
   template: `
     <p>Please login.</p>
-    <button (click)="login()">Login with Google</button>
+    <button mat-raised-button color="accent" (click)="login()">Login with Google</button>
   `,
   styleUrls: ['./login.component.scss']
 })

@@ -15,7 +15,7 @@ const views = ['login', 'summary', 'new-flight', 'report'];
    <lg-header (requestView)="onViewRequest($event)"></lg-header>` + 
    views.map(view => `
      <lg-${view} *ngIf="activeView === '${view}'"
-                 (requestView)="onViewRequest($event)"></lg-${view}>`).join('')
+                 (requestView)="onViewRequest($event)" class="view-${view} container"></lg-${view}>`).join('')
    ,
   styleUrls: ['./app.component.scss']
 })
