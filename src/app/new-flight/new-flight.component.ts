@@ -65,7 +65,7 @@ import { Pilot } from '../models/pilot';
            placeholder="Arrival">
   </mat-form-field>
   <mat-form-field floatPlaceholder="always" class="mat-form-field--no-underline">
-    <input matInput placeholder="Flight rule" disabled >
+    <input matInput placeholder="Flight rules" disabled >
     <mat-radio-group [(ngModel)]="flight.rule">
       <mat-radio-button *ngFor="let rule of flightRules"
                         [value]="rule"
@@ -98,7 +98,7 @@ import { Pilot } from '../models/pilot';
                         [value]="opt" >{{opt? 'Yes' : 'No'}}</mat-radio-button>
     </mat-radio-group>
   </mat-form-field>
-<button type="submit" (click)="saveFlight()">submit</button>
+<button mat-raised-button color="primary" class="register-flight" type="submit" (click)="saveFlight()">submit</button>
 </div>
   `,
   styleUrls: ['./new-flight.component.scss'],
