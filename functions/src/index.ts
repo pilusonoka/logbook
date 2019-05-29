@@ -33,7 +33,7 @@ function isDateFromThisMonth(date: Timestamp) {
 }
 
 export const flights = functions.https.onRequest((request, response) => {
-  const uid = request.body['uid'];
+  const uid = 'tBumbpf5RYRhQWyWonlmyZ77Rza2';
   var db = admin.firestore();
   db.collection('flights')
     .where('pilotId', '==', uid)
