@@ -7,8 +7,11 @@ import { Time } from '@angular/common';
   selector: 'lg-summary',
   template: `
     <div *ngIf="summary">
-      <div>Time total: <span class="flightTime--total">{{summary.timeForever.hours}}h {{summary.timeForever.minutes}}min</span>... Wow!</div>
-      <div>Time this month: <span class="flightTime--month">{{summary.timeForever.hours}}h {{summary.timeForever.minutes}}min</span>.</div>
+      <div class="item">Time total: <span class="flightTime flightTime--total">{{summary.timeForever.hours}}h {{summary.timeForever.minutes}}min</span>... Wow!</div>
+      <div class="item">Time this month: <span class="flightTime flightTime--month">{{summary.timeForever.hours}}h {{summary.timeForever.minutes}}min</span>.</div>
+      <div class="item" *ngFor="let aircraft of Object.keys(summary.timePerAircraft)">
+        Total for <span class="aircraft">{{aircraft}}</span>: <span class="flightTime flightTime--aircraft">{{summary.timePerAircraft[aircraft].hours}}h {{summary.timePerAircraft[aircraft].minutes}}min</span>
+      </div>
       <button color="accent"
               mat-raised-button 
               (click)="requestView.emit('new-flight')">
@@ -26,6 +29,7 @@ export class SummaryComponent implements OnInit {
     timeThisMonth: Time;
     timePerAircraft: {[key in string]: Time}
   };
+  Object;
 
   constructor(private storageService: StorageService,
               private applicationService: ApplicationStateService) { }
@@ -33,6 +37,7 @@ export class SummaryComponent implements OnInit {
   @Output() requestView = new EventEmitter();
 
   ngOnInit() {
+    this.Object = Object;
     this.pilot = this.applicationService.pilot;
     this.storageService
         .getFlightsSummary(this.pilot)

@@ -1,10 +1,21 @@
 .flightTime {
-  font-weight: 800;
+  font-weight: 700;
 
   &--total {
-    color: firebrick;
+    color: crimson;
   }
   &--month {
     color: goldenrod;
   }
+  &--aircraft {
+    color: dodgerblue;
+  }
+}
+
+.aircraft {
+  font-weight: 700;
+}
+
+.item {
+  margin: 1em;
 }
